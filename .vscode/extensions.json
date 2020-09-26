@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "EditorConfig.EditorConfig",
+        "vscjava.vscode-java-pack",
+        "pivotal.vscode-boot-dev-pack",
+        "afmicc.getterandsettergenerator",
+        "esbenp.prettier-vscode"
+    ]
+}

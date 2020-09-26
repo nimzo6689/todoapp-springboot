@@ -1,14 +1,14 @@
 {
-  "configurations": [
-    {
-      "type": "java",
-      "name": "Spring Boot-TodoApplication<todo>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
-      "mainClass": "com.example.todo.TodoApplication",
-      "projectName": "todo",
-      "args": ""
-    }
-  ]
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TodoApplication<todo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.todo.TodoApplication",
+            "projectName": "todo",
+            "args": ""
+        }
+    ]
 }
