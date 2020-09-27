@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>シンプルなTodoアプリ - 編集</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <section class="todoapp">
+            <header class="header">
+                <h1>タスク編集</h1>
+            </header>
+            <section class="main">
+                <form method="POST" th:data-id="${todo.id}">
+                    <ul class="todo-list">
+                        <li class="editing">
+                            <input class="edit edit_page" th:value="${todo.title}" />
+                        </li>
+                    </ul>
+                    <footer class="footer">
+                        <ul class="filters">
+                            <li>
+                                <a href="#" disabled="disabled" id="update" class="submit-links">更新</a>
+                            </li>
+                            <li>
+                                <a href="#" disabled="disabled" id="complete" class="submit-links">完了済みに変更</a>
+                            </li>
+                            <li>
+                                <a href="#" disabled="disabled" id="delete" class="submit-links">削除</a>
+                            </li>
+                        </ul>
+                    </footer>
+                </form>
+            </section>
+        </section>
+        <script>
+            // document.getElementsByClassName('submit-links').onclick = function (e) {
+            //     e.preventDefault();
+            //     const action = e.target.id;
+            //     const form = this.closest('form');
+            //     form.action = `/${form.dataset.id}/${action}`;
+            //     form.submit();
+            // };
+            document.getElementsByClassName('submit-links').onclick = function () {
+                console.log('accepted');
+            };
+        </script>
+    </body>
+</html>
