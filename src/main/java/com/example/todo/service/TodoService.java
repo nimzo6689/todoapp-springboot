@@ -14,7 +14,7 @@ public class TodoService {
 
         List<TodoItem> retVal = new ArrayList<>();
         retVal.add(new TodoItem(1L, "やること１", false));
-        retVal.add(new TodoItem(2L, "やること２", false));
+        retVal.add(new TodoItem(2L, "やること２", true));
         retVal.add(new TodoItem(3L, "やること３", false));
 
         return retVal;

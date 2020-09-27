@@ -39,16 +39,16 @@
             </section>
         </section>
         <script>
-            // document.getElementsByClassName('submit-links').onclick = function (e) {
-            //     e.preventDefault();
-            //     const action = e.target.id;
-            //     const form = this.closest('form');
-            //     form.action = `/${form.dataset.id}/${action}`;
-            //     form.submit();
-            // };
-            document.getElementsByClassName('submit-links').onclick = function () {
-                console.log('accepted');
-            };
+            [...document.getElementsByClassName('submit-links')].forEach(
+                element =>
+                    (element.onclick = function (e) {
+                        e.preventDefault();
+                        const action = e.target.id;
+                        const form = this.closest('form');
+                        form.action = `/${form.dataset.id}/${action}`;
+                        form.submit();
+                    })
+            );
         </script>
     </body>
 </html>

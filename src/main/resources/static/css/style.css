@@ -244,6 +244,7 @@ body {
 
 .todo-list li .goto-edit:hover {
     color: #af5b5e;
+    cursor: pointer;
 }
 
 .todo-list li .goto-edit:after {

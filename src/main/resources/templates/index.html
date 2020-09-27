@@ -20,12 +20,14 @@
             </header>
             <section class="main">
                 <ul class="todo-list">
-                    <li th:each="todo : ${todos}">
-                        <div class="view">
-                            <label th:text="${todo.title}"></label>
-                            <button th:data-id="${todo.id}" class="goto-edit"></button>
-                        </div>
-                    </li>
+                    <th:block th:each="todo : ${todos}">
+                        <li th:class="${todo.isCompleted} ? 'completed'">
+                            <div class="view">
+                                <label th:text="${todo.title}"></label>
+                                <button th:data-id="${todo.id}" class="goto-edit"></button>
+                            </div>
+                        </li>
+                    </th:block>
                 </ul>
                 <footer class="footer">
                     <span class="todo-count" th:text="'残り ' + ${todos.size()}"></span>
@@ -50,13 +52,19 @@
             <p>こちらのアプリは<a href="http://todomvc.com">TodoMVC</a> の仕様を一部変更して作成したものです。</p>
         </footer>
         <script>
-            document.getElementsByClassName('goto-edit').onclick = function (e) {
-                location.href = `/${e.target.dataset.id}/edit`;
-                console.log(e.target.dataset.id);
-            };
-            document.getElementsByClassName('clear-completed').onclick = function () {
-                this.closest('form').submit();
-            };
+            [...document.getElementsByClassName('goto-edit')].forEach(
+                element =>
+                    (element.onclick = function () {
+                        location.href = `/${element.dataset.id}/edit`;
+                    })
+            );
+            [...document.getElementsByClassName('clear-completed')].forEach(
+                element =>
+                    (element.onclick = function (e) {
+                        e.preventDefault();
+                        this.closest('form').submit();
+                    })
+            );
         </script>
     </body>
 </html>
