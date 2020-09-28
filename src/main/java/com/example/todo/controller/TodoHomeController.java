@@ -28,6 +28,7 @@ public class TodoHomeController {
 
         // 新規作成用のTodoインスタンスを生成
         model.addAttribute("newTodo", new TodoItem());
+        model.addAttribute("isCompleted", isCompleted);
 
         // Todoリストを取得
         List<TodoItem> todos;

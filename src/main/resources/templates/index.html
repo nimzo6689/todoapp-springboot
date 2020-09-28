@@ -40,13 +40,13 @@
                     <span class="todo-count" th:text="'残り ' + ${todos.size()}"></span>
                     <ul class="filters">
                         <li>
-                            <a href="/" class="selected">全て</a>
+                            <a href="/" th:class="${isCompleted} == null ? 'selected'">全て</a>
                         </li>
                         <li>
-                            <a href="/?is_completed=0">未完了</a>
+                            <a href="/?is_completed=0" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
                         </li>
                         <li>
-                            <a href="/?is_completed=1">完了済み</a>
+                            <a href="/?is_completed=1" th:class="${isCompleted} == 1 ? 'selected'">完了済み</a>
                         </li>
                     </ul>
                     <form method="POST" action="/clear-completed">
