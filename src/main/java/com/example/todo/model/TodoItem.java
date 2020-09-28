@@ -37,4 +37,9 @@ public class TodoItem implements Serializable {
         this.isCompleted = isCompleted;
     }
 
+    @Override
+    public String toString() {
+        return "TodoItem[id=" + this.id + ", title=" + this.title + ", isCompleted=" + this.isCompleted + "]";
+    }
+
 }

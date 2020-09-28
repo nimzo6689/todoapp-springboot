@@ -6,6 +6,8 @@ import com.example.todo.common.Utils;
 import com.example.todo.model.TodoItem;
 import com.example.todo.service.TodoService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TodoHomeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TodoHomeController.class);
 
     private final TodoService todoService;
 
@@ -38,6 +42,7 @@ public class TodoHomeController {
             todos = this.todoService.getTodoItemListFilteredByComleted(Utils.convertToBool(isCompleted));
         }
         model.addAttribute("todos", todos);
+        logger.info("index. isCompleted=" + isCompleted + ", todo count is " + todos.size());
 
         return "index";
     }
@@ -46,6 +51,7 @@ public class TodoHomeController {
     public String createTodo(TodoItem todo) {
 
         this.todoService.createTodo(todo);
+        logger.info("create. " + todo.toString());
 
         return "redirect:/";
     }
@@ -54,7 +60,7 @@ public class TodoHomeController {
     public String clearCompleted() {
 
         int deletedCount = this.todoService.deleteCompleted();
-        System.out.println(deletedCount + " items are deleted.");
+        logger.info(deletedCount + " items are deleted.");
 
         return "redirect:/";
     }

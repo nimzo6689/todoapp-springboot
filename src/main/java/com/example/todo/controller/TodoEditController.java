@@ -5,6 +5,8 @@ import java.util.List;
 import com.example.todo.model.TodoItem;
 import com.example.todo.service.TodoService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TodoEditController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TodoEditController.class);
 
     private final TodoService todoService;
 
@@ -30,7 +34,7 @@ public class TodoEditController {
         for (TodoItem todo : todos) {
             if (todo.getId() == id) {
                 model.addAttribute("todo", todo);
-                System.out.println("edit. id=" + id);
+                logger.info("edit. " + todo.toString());
                 break;
             }
         }
@@ -42,6 +46,7 @@ public class TodoEditController {
     public String update(TodoItem todo) {
 
         this.todoService.updateTodo(todo);
+        logger.info("update. " + todo.toString());
 
         return "redirect:/";
     }
@@ -51,6 +56,7 @@ public class TodoEditController {
 
         todo.setIsCompleted(true);
         this.todoService.updateTodo(todo);
+        logger.info("complete. " + todo.toString());
 
         return "redirect:/";
     }
@@ -59,6 +65,7 @@ public class TodoEditController {
     public String delete(TodoItem todo) {
 
         this.todoService.deleteTodo(todo);
+        logger.info("delete. " + todo.toString());
 
         return "redirect:/";
     }

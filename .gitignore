@@ -38,3 +38,6 @@ build/
 
 ### H2 database ###
 /h2db/
+
+### Logging ###
+/logs/
