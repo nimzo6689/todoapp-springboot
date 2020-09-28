@@ -2,6 +2,7 @@ package com.example.todo.controller;
 
 import java.util.List;
 
+import com.example.todo.common.Utils;
 import com.example.todo.model.TodoItem;
 import com.example.todo.service.TodoService;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TodoHomeController {
@@ -22,23 +24,37 @@ public class TodoHomeController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(name = "is_completed", required = false) Integer isCompleted, Model model) {
 
-        List<TodoItem> todos = this.todoService.getTodoItemList();
+        // 新規作成用のTodoインスタンスを生成
+        model.addAttribute("newTodo", new TodoItem());
+
+        // Todoリストを取得
+        List<TodoItem> todos;
+        if (isCompleted == null) {
+            todos = this.todoService.getTodoItemList();
+        } else {
+            todos = this.todoService.getTodoItemListFilteredByComleted(Utils.convertToBool(isCompleted));
+        }
         model.addAttribute("todos", todos);
 
         return "index";
     }
 
     @PostMapping("/create-todo")
-    public String createTodo(Model model) {
+    public String createTodo(TodoItem todo) {
+
+        this.todoService.createTodo(todo);
+
         return "redirect:/";
     }
 
     @PostMapping("/clear-completed")
     public String clearCompleted() {
 
-        System.out.println("clear-completed is called.");
+        int deletedCount = this.todoService.deleteCompleted();
+        System.out.println(deletedCount + " items are deleted.");
+
         return "redirect:/";
     }
 }

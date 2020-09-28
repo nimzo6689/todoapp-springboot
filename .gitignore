@@ -35,3 +35,6 @@ build/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+### H2 database ###
+/h2db/

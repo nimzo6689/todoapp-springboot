@@ -39,20 +39,27 @@ public class TodoEditController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") String id, Model model) {
-        System.out.println("update. id=" + id);
+    public String update(TodoItem todo) {
+
+        this.todoService.updateTodo(todo);
+
         return "redirect:/";
     }
 
     @PostMapping("/{id}/complete")
-    public String complete(@PathVariable("id") String id, Model model) {
-        System.out.println("complete. id=" + id);
+    public String complete(TodoItem todo) {
+
+        todo.setIsCompleted(true);
+        this.todoService.updateTodo(todo);
+
         return "redirect:/";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") String id, Model model) {
-        System.out.println("delete. id=" + id);
+    public String delete(TodoItem todo) {
+
+        this.todoService.deleteTodo(todo);
+
         return "redirect:/";
     }
 }

@@ -1,15 +1,16 @@
 package com.example.todo.model;
 
-public class TodoItem {
+import java.io.Serializable;
+
+public class TodoItem implements Serializable {
+
+    private static final long serialVersionUID = 7750532245828507798L;
 
     private long id;
     private String title;
     private boolean isCompleted;
 
-    public TodoItem(long id, String title, boolean isCompleted) {
-        this.id = id;
-        this.title = title;
-        this.isCompleted = isCompleted;
+    public TodoItem() {
     }
 
     public long getId() {
@@ -28,7 +29,7 @@ public class TodoItem {
         this.title = title;
     }
 
-    public boolean isIsCompleted() {
+    public boolean getIsCompleted() {
         return this.isCompleted;
     }
 

@@ -13,9 +13,16 @@
     <body>
         <section class="todoapp">
             <header class="header">
-                <form method="POST" action="/create-todo">
+                <form method="POST" action="/create-todo" th:object="${newTodo}">
                     <h1>ToDoリスト</h1>
-                    <input name="title" class="new-todo" placeholder="必要なタスクを入力してください。" autofocus />
+                    <input
+                        name="title"
+                        class="new-todo"
+                        type="text"
+                        placeholder="必要なタスクを入力してください。"
+                        th:field="*{title}"
+                        autofocus
+                    />
                 </form>
             </header>
             <section class="main">
