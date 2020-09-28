@@ -15,11 +15,11 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     @Autowired
-    public TodoService(final TodoRepository todoRepository) {
+    public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
-    public int createTodo(final TodoItem todoItem) {
+    public int createTodo(TodoItem todoItem) {
         return this.todoRepository.insert(todoItem);
     }
 
@@ -41,11 +41,11 @@ public class TodoService {
         return retVal;
     }
 
-    public int updateTodo(final TodoItem todoItem) {
+    public int updateTodo(TodoItem todoItem) {
         return this.todoRepository.update(todoItem);
     }
 
-    public int deleteTodo(final TodoItem todoItem) {
+    public int deleteTodo(TodoItem todoItem) {
         return this.todoRepository.deleteById(todoItem.getId());
     }
 
