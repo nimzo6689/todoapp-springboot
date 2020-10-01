@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/home")
 public class TodoHomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(TodoHomeController.class);
@@ -30,8 +32,8 @@ public class TodoHomeController {
         this.todoService = todoService;
     }
 
-    @GetMapping("/")
-    public String index(@RequestParam(name = "is_completed", required = false) Integer isCompleted, Model model) {
+    @GetMapping
+    public String onLoad(@RequestParam(name = "is_completed", required = false) Integer isCompleted, Model model) {
 
         // 新規作成用のTodoインスタンスを生成
         model.addAttribute("todoItem", new TodoItem());
@@ -45,9 +47,9 @@ public class TodoHomeController {
             todos = this.todoService.getTodoItemListFilteredByComleted(Utils.convertToBool(isCompleted));
         }
         model.addAttribute("todos", todos);
-        logger.info("index. isCompleted=" + isCompleted + ", todo count is " + todos.size());
+        logger.info("home. isCompleted=" + isCompleted + ", todo count is " + todos.size());
 
-        return "index";
+        return "home";
     }
 
     @PostMapping("/create-todo")
@@ -59,13 +61,13 @@ public class TodoHomeController {
             List<TodoItem> todos = this.todoService.getTodoItemList();
             model.addAttribute("todos", todos);
             model.addAttribute("todoItem", todoItem);
-            return "index";
+            return "home";
         }
 
         this.todoService.createTodo(todoItem);
         logger.info("create. " + todoItem.toString());
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping("/clear-completed")
@@ -74,6 +76,6 @@ public class TodoHomeController {
         int deletedCount = this.todoService.deleteCompleted();
         logger.info(deletedCount + " items are deleted.");
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 }

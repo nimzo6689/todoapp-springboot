@@ -9,6 +9,7 @@
             href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese"
             rel="stylesheet"
         />
+        <meta name="context-path" th:content="@{/}" />
     </head>
     <body>
         <section class="todoapp">
@@ -20,7 +21,7 @@
                     <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
                     <ul class="todo-list">
                         <li class="editing">
-                            <input class="edit edit_page" type="text" th:field="*{title}" />
+                            <input id="todo-title" class="edit edit_page" type="text" th:field="*{title}" />
                         </li>
                     </ul>
                     <footer class="footer">
@@ -40,13 +41,24 @@
             </section>
         </section>
         <script>
+            const contextPath = document.querySelector('meta[name="context-path"]').content.replace('/', '');
+
+            // EnterキーでSubmitされることを防止。
+            document.getElementById('todo-title').onkeypress = e => {
+                const key = e.keyCode || e.charCode || 0;
+                if (key == 13) {
+                    e.preventDefault();
+                }
+            };
+
+            // ボタンごとにactionを設定
             [...document.getElementsByClassName('submit-links')].forEach(
                 element =>
                     (element.onclick = function (e) {
                         e.preventDefault();
                         const action = e.target.id;
                         const form = this.closest('form');
-                        form.action = `/${form.dataset.id}/${action}`;
+                        form.action = `${contextPath}/${form.dataset.id}/${action}`;
                         form.submit();
                     })
             );

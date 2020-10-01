@@ -58,7 +58,7 @@ public class TodoEditController {
         this.todoService.updateTodo(todo);
         logger.info("update. " + todo.toString());
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping("/{id}/complete")
@@ -72,7 +72,7 @@ public class TodoEditController {
         this.todoService.updateTodo(todo);
         logger.info("complete. " + todo.toString());
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping("/{id}/delete")
@@ -85,6 +85,6 @@ public class TodoEditController {
         this.todoService.deleteTodo(todo);
         logger.info("delete. " + todo.toString());
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 }

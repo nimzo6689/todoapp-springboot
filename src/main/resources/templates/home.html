@@ -9,11 +9,12 @@
             href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese"
             rel="stylesheet"
         />
+        <meta name="context-path" th:content="@{/}" />
     </head>
     <body>
         <section class="todoapp">
             <header class="header">
-                <form method="POST" th:action="@{/create-todo}" th:object="${todoItem}">
+                <form method="POST" th:action="@{/home/create-todo}" th:object="${todoItem}">
                     <h1>ToDoリスト</h1>
                     <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
                     <input
@@ -41,29 +42,36 @@
                     <span class="todo-count" th:text="'残り ' + ${todos?.size()}"></span>
                     <ul class="filters">
                         <li>
-                            <a th:href="@{/}" th:class="${isCompleted} == null ? 'selected'">全て</a>
+                            <a th:href="@{/home}" th:class="${isCompleted} == null ? 'selected'">全て</a>
                         </li>
                         <li>
-                            <a th:href="@{/?is_completed=0}" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
+                            <a th:href="@{/home?is_completed=0}" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
                         </li>
                         <li>
-                            <a th:href="@{/?is_completed=1}" th:class="${isCompleted} == 1 ? 'selected'">完了済み</a>
+                            <a th:href="@{/home?is_completed=1}" th:class="${isCompleted} == 1 ? 'selected'"
+                                >完了済み</a
+                            >
                         </li>
                     </ul>
-                    <form method="POST" th:action="@{/clear-completed}">
+                    <form method="POST" th:action="@{/home/clear-completed}">
                         <button class="clear-completed">完了済みを削除</button>
                     </form>
                 </footer>
             </section>
         </section>
         <footer class="info">
-            <p>こちらのアプリは<a href="http://todomvc.com">TodoMVC</a> の仕様を一部変更して作成したものです。</p>
+            <p>
+                こちらのアプリは<a href="http://todomvc.com" target="_blank">TodoMVC</a>
+                の仕様を一部変更して作成したものです。
+            </p>
         </footer>
         <script>
+            const contextPath = document.querySelector('meta[name="context-path"]').content.replace('/', '');
+
             [...document.getElementsByClassName('goto-edit')].forEach(
                 element =>
                     (element.onclick = function () {
-                        location.href = `/${element.dataset.id}/edit`;
+                        location.href = `${contextPath}/${element.dataset.id}/edit`;
                     })
             );
             [...document.getElementsByClassName('clear-completed')].forEach(

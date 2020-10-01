@@ -40,7 +40,7 @@ public class TodoRepository {
 
     public List<TodoItem> findAll() {
 
-        String sql = "SELECT * FROM todo";
+        String sql = "SELECT * FROM todo ORDER BY id DESC";
         return this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TodoItem.class));
     }
 
