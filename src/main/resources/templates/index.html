@@ -13,8 +13,9 @@
     <body>
         <section class="todoapp">
             <header class="header">
-                <form method="POST" action="/create-todo" th:object="${newTodo}">
+                <form method="POST" th:action="@{/create-todo}" th:object="${todoItem}">
                     <h1>ToDoリスト</h1>
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
                     <input
                         name="title"
                         class="new-todo"
@@ -37,19 +38,19 @@
                     </th:block>
                 </ul>
                 <footer class="footer">
-                    <span class="todo-count" th:text="'残り ' + ${todos.size()}"></span>
+                    <span class="todo-count" th:text="'残り ' + ${todos?.size()}"></span>
                     <ul class="filters">
                         <li>
-                            <a href="/" th:class="${isCompleted} == null ? 'selected'">全て</a>
+                            <a th:href="@{/}" th:class="${isCompleted} == null ? 'selected'">全て</a>
                         </li>
                         <li>
-                            <a href="/?is_completed=0" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
+                            <a th:href="@{/?is_completed=0}" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
                         </li>
                         <li>
-                            <a href="/?is_completed=1" th:class="${isCompleted} == 1 ? 'selected'">完了済み</a>
+                            <a th:href="@{/?is_completed=1}" th:class="${isCompleted} == 1 ? 'selected'">完了済み</a>
                         </li>
                     </ul>
-                    <form method="POST" action="/clear-completed">
+                    <form method="POST" th:action="@{/clear-completed}">
                         <button class="clear-completed">完了済みを削除</button>
                     </form>
                 </footer>

@@ -11,13 +11,16 @@
         />
     </head>
     <body>
+        <p>
+            システムエラーが発生しました。<br />
+            <a href="/">ホーム</a>へ戻る。
+        </p>
         <div th:text="'timestamp: ' + ${timestamp}"></div>
         <div th:text="'status: ' + ${status}"></div>
         <div th:text="'error: ' + ${error}"></div>
         <div th:text="'exception: ' + ${exception}"></div>
         <div th:text="'message: ' + ${message}"></div>
         <div th:text="'errors: ' + ${errors}"></div>
-        <div th:text="'trace: ' + ${trace}"></div>
         <div th:text="'path: ' + ${path}"></div>
     </body>
 </html>

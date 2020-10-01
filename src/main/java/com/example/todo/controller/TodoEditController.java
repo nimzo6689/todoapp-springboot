@@ -2,6 +2,8 @@ package com.example.todo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.example.todo.model.TodoItem;
 import com.example.todo.service.TodoService;
 
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +36,7 @@ public class TodoEditController {
 
         for (TodoItem todo : todos) {
             if (todo.getId() == id) {
-                model.addAttribute("todo", todo);
+                model.addAttribute("todoItem", todo);
                 logger.info("edit. " + todo.toString());
                 break;
             }
@@ -43,7 +46,14 @@ public class TodoEditController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(TodoItem todo) {
+    public String update(@Valid TodoItem todo, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            logger.info("update occurs validation error.");
+
+            model.addAttribute("todo", todo);
+            return "edit";
+        }
 
         this.todoService.updateTodo(todo);
         logger.info("update. " + todo.toString());
@@ -52,7 +62,11 @@ public class TodoEditController {
     }
 
     @PostMapping("/{id}/complete")
-    public String complete(TodoItem todo) {
+    public String complete(@Valid TodoItem todo, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "edit";
+        }
 
         todo.setIsCompleted(true);
         this.todoService.updateTodo(todo);
@@ -62,7 +76,11 @@ public class TodoEditController {
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(TodoItem todo) {
+    public String delete(@Valid TodoItem todo, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "edit";
+        }
 
         this.todoService.deleteTodo(todo);
         logger.info("delete. " + todo.toString());

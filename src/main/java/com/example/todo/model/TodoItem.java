@@ -2,11 +2,16 @@ package com.example.todo.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class TodoItem implements Serializable {
 
     private static final long serialVersionUID = 7750532245828507798L;
 
     private long id;
+    @NotBlank
+    @Size(max = 32)
     private String title;
     private boolean isCompleted;
 

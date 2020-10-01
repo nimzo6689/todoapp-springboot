@@ -16,7 +16,8 @@
                 <h1>タスク編集</h1>
             </header>
             <section class="main">
-                <form method="POST" th:data-id="${todo.id}" th:object="${todo}">
+                <form method="POST" th:data-id="${todoItem.id}" th:object="${todoItem}">
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
                     <ul class="todo-list">
                         <li class="editing">
                             <input class="edit edit_page" type="text" th:field="*{title}" />
