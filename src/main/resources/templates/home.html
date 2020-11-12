@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>シンプルなTodoアプリ - ホーム</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese"
+            rel="stylesheet"
+        />
+        <meta name="context-path" th:content="@{/}" />
+    </head>
+    <body>
+        <section class="todoapp">
+            <header class="header">
+                <form method="POST" th:action="@{/home/create-todo}" th:object="${todoItem}">
+                    <h1>ToDoリスト</h1>
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}" class="error">Error</p>
+                    <input
+                        name="title"
+                        class="new-todo"
+                        type="text"
+                        placeholder="必要なタスクを入力してください。"
+                        th:field="*{title}"
+                        autofocus
+                    />
+                </form>
+            </header>
+            <section class="main">
+                <ul class="todo-list">
+                    <th:block th:each="todo : ${todos}">
+                        <li th:class="${todo.isCompleted} ? 'completed'">
+                            <div class="view">
+                                <label th:text="${todo.title}"></label>
+                                <button th:data-id="${todo.id}" class="goto-edit"></button>
+                            </div>
+                        </li>
+                    </th:block>
+                </ul>
+                <footer class="footer">
+                    <span class="todo-count" th:text="'残り ' + ${todos?.size()}"></span>
+                    <ul class="filters">
+                        <li>
+                            <a th:href="@{/home}" th:class="${isCompleted} == null ? 'selected'">全て</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/home?is_completed=0}" th:class="${isCompleted} == 0 ? 'selected'">未完了</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/home?is_completed=1}" th:class="${isCompleted} == 1 ? 'selected'"
+                                >完了済み</a
+                            >
+                        </li>
+                    </ul>
+                    <form method="POST" th:action="@{/home/clear-completed}">
+                        <button class="clear-completed">完了済みを削除</button>
+                    </form>
+                </footer>
+            </section>
+        </section>
+        <footer class="info">
+            <p>
+                こちらのアプリは<a href="http://todomvc.com" target="_blank"> TodoMVC </a>
+                の仕様を一部変更して作成したものです。
+            </p>
+        </footer>
+        <script>
+            const contextPath = document.querySelector('meta[name="context-path"]').content.replace('/', '');
+
+            [...document.getElementsByClassName('goto-edit')].forEach(
+                element =>
+                    (element.onclick = function () {
+                        location.href = `${contextPath}/${element.dataset.id}/edit`;
+                    })
+            );
+            [...document.getElementsByClassName('clear-completed')].forEach(
+                element =>
+                    (element.onclick = function (e) {
+                        e.preventDefault();
+                        this.closest('form').submit();
+                    })
+            );
+        </script>
+    </body>
+</html>
