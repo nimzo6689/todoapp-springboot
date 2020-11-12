@@ -16,7 +16,7 @@
             <header class="header">
                 <form method="POST" th:action="@{/home/create-todo}" th:object="${todoItem}">
                     <h1>ToDoリスト</h1>
-                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}" class="error">Error</p>
                     <input
                         name="title"
                         class="new-todo"
@@ -61,7 +61,7 @@
         </section>
         <footer class="info">
             <p>
-                こちらのアプリは<a href="http://todomvc.com" target="_blank">TodoMVC</a>
+                こちらのアプリは<a href="http://todomvc.com" target="_blank"> TodoMVC </a>
                 の仕様を一部変更して作成したものです。
             </p>
         </footer>

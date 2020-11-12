@@ -18,7 +18,7 @@
             </header>
             <section class="main">
                 <form method="POST" th:data-id="${todoItem.id}" th:object="${todoItem}">
-                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}" class="error">Error</p>
                     <ul class="todo-list">
                         <li class="editing">
                             <input id="todo-title" class="edit edit_page" type="text" th:field="*{title}" />

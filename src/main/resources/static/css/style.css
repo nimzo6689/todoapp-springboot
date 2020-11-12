@@ -381,3 +381,10 @@ html .clear-completed:active {
         bottom: 10px;
     }
 }
+
+.error {
+    padding: 12px;
+    font-size: 16px;
+    height: 20px;
+    background-color: pink;
+}
