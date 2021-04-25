@@ -36,8 +36,8 @@ build/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-### H2 database ###
-/h2db/
+### SQLite3 database ###
+*.sqlite?
 
 ### Logging ###
 /logs/
